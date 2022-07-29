@@ -6,12 +6,20 @@ const board = document.querySelector('#board');
 
 let time = 0;
 let score = 0;
+const colors = ['red', 'blue', 'orange', 'yellow', 'green'];
 
 const changeScreen = (index) => {
   screens[index].classList.add('up');
 }
 
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+}
+
 const setTime = (value) => {
+  if (value < 10) {
+    value = `0${value}`;
+  }
   timeEl.innerHTML = `00:${value}`;
 }
 
@@ -28,12 +36,12 @@ const createRandomCircle = () => {
 
   circle.classList.add('circle')
 
-  circle.classList.add('çircle');
   circle.style.width = `${size}px`
   circle.style.height = `${size}px`
   circle.style.top = `${y}px`
   circle.style.left = `${x}px`
-
+  circle.style.backgroundColor = colors[getRandomInt(colors.length)];
+  console.log(colors[getRandomInt(colors.length)])
   board.append(circle);
 }
 
@@ -42,9 +50,6 @@ const decreaseTime = () => {
     finishGame();
   } else {
     let current = --time;
-    if (current < 10) {
-      current = `0${current}`;
-    }
     setTime(current)
   }
 }
